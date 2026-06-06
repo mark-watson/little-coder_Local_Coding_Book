@@ -1,0 +1,9 @@
+*~
+.venv
+.DS_Store
+.lein*
+*.fasl
+system-index.txt
+.aider*
+.claude
+.antigravitycli
