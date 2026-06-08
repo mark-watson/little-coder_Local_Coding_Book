@@ -1,4 +1,4 @@
-# Manuscript and Examples for the book "Local Agentic Coding With Little-Coder"
+# Manuscript and Examples for the book "The Rise of Local Coding Agents"
 
 This book uses the excellent open source project `little-coder` that is itself built on top of the excellent `pi` agentic coding system.
 
