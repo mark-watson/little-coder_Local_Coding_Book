@@ -50,6 +50,15 @@ curl -fsSL https://raw.githubusercontent.com/itayinbarr/little-coder/main/instal
 npm install -g little-coder # method 2
 ```
 
+I also define in my ``/.profile`:
+
+```
+alias lc='little-coder --model ollama/gemma4:26b-a4b-it-qat'
+alias lcf='little-coder --model ollama/gemma4:12b-it-qat'
+# Append functional programming tools to little-coder's bash whitelist
+export LITTLE_CODER_BASH_ALLOW="sbcl ,clojure ,clj ,npx "
+```
+
 ---
 
 ## 2. Deploying Little-Coder Skills
