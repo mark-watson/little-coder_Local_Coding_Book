@@ -83,6 +83,150 @@ You should see a directory layout matching this:
 
 Each markdown file inside `~/.pi/agent/skills/` contains critical system instructions, CLI tool invariants, and execution rules that the agent loads when working on projects of that language type.
 
+## Verifying That Our New Little-Coder Skills Are Loaded and Available
+
+**little-coder** is built on top of **pi**. However little-coder strips the substrate down to a hyper-lean, non-interactive execution setup (purely loading the files directly into the system prompt context at launch), it doesn't process slash commands like /skills inside the chat terminal.
+
+Since little-coder treats skills purely as filesystem assets, you manage and inspect them entirely using standard shell commands outside the agent interface.
+
+Fortunately we can simply ask what skills are available:
+
+```
+ > What skills or runtime rules are currently loaded in your system prompt for Lisp or temp file creation?                   
+                                                                                                                           
+
+ The user is asking about specific "skills" or "runtime rules" mentioned in my system prompt.                              
+ Specifically, they want to know what's loaded regarding:                                                                  
+ 1. Lisp (Common Lisp and Clojure).                                                                                        
+ 2. Temp file creation (no-edit-create-new-files).                                                                         
+                                                                                                                           
+ I need to look at the <available_skills> section of my system prompt provided in the initial message.                     
+                                                                                                                           
+ Looking at the available_skills block:                                                                                    
+ - clojure: Optimizations for headless Clojure tool execution. Location: /Users/markw/.pi/agent/skills/clojure.md.         
+ - common-lisp: Optimizations for headless SBCL tool execution. Location: /Users/markw/.pi/agent/skills/common-lisp.md.    
+ - no-edit-create-new-files: Don't edit files, create a new temporary file. Location:                                      
+   /Users/markw/.pi/agent/skills/write-temp-strategy.md.                                                                   
+                                                                                                                           
+ I should also check if there are any "runtime invariants" or other rules related to these.                                
+ The prompt mentions:                                                                                                      
+ - Write refuses on existing files. (This is a runtime invariant).                                                         
+ - Edit must be used for modifications.                                                                                    
+                                                                                                                           
+ The user's question specifically asks about the skills and rules loaded in my system prompt for those topics.             
+                                                                                                                           
+ Plan:                                                                                                                     
+ 1. List the Clojure skill details.                                                                                        
+ 2. List the Common Lisp skill details.                                                                                    
+ 3. List the no-edit-create-new-files skill details.                                                                       
+ 4. Mention any relevant runtime invariants if they apply (like the Write refusal).                                        
+
+ Based on my system prompt, here are the specific skills and rules currently loaded for those topics:                      
+                                                                                                                           
+ ### 1. Lisp Skills                                                                                                        
+                                                                                                                           
+ I have two specialized optimization skills available for Lisp development:                                                
+                                                                                                                           
+ - clojure: Optimized for headless Clojure tool execution. (Located at /Users/markw/.pi/agent/skills/clojure.md)           
+ - common-lisp: Optimized for headless SBCL (Steel Bank Common Lisp) tool execution. (Located at                           
+   /Users/markw/.pi/agent/skills/common-lisp.md)                                                                           
+                                                                                                                           
+ ### 2. Temporary File Creation Skill                                                                                      
+                                                                                                                           
+ I have a specific strategy loaded for handling file creation when editing is not the preferred approach:                  
+                                                                                                                           
+ - no-edit-create-new-files: This skill instructs me to avoid modifying existing files directly and instead create new     
+   temporary files. (Located at /Users/markw/.pi/agent/skills/write-temp-strategy.md)                                      
+                                                                                                                           
+ ### 3. Relevant Runtime Invariants                                                                                        
+                                                                                                                           
+ In addition to the skills above, I am governed by a critical runtime invariant regarding file modification:               
+                                                                                                                           
+ - Write Refusal: The Write tool will refuse to execute if the target file already exists. To modify an existing file, I   
+   must use the Edit tool with exact old_string and new_string matches.
+```
+
+Similarly I can ask what skills are available for TypeScript:
+
+```
+> What skills or runtime rules are currently loaded in your system prompt for TypeScript?                                   
+                                                                                                                           
+
+ The user is asking about "skills" or "runtime rules" related to "TypeScript" that are currently loaded in my system       
+ prompt.                                                                                                                   
+ 
+   *   I need to look at the `<available_skills>` section of the system prompt provided in the initial message.            
+   *   Looking through the list:                                                                                           
+       *   `clojure` (Lisp)                                                                                                
+       *   `common-lisp` (Lisp)                                                                                            
+       *   `typescript` (TypeScript) - This is one of them!                                                                
+       *   `no-edit-create-new-files` (Temp files)                                                                         
+       *   `find-skills` (Discovery)                                                                                       
+       *   `gemini-api-dev` (Gemini API)                                                                                   
+                                                                                                                           
+   *   Name: `typescript`                                                                                                  
+   *   Description: "Optimizations for headless typescript tool execution."                                                
+   *   Location: `/Users/markw/.pi/agent/skills/typescript.md`                                                             
+                                                                                                                           
+   *   The system prompt also mentions "Runtime invariants" which apply generally to all tasks (like the `Write` refusal   
+ rule).                                                                                                                    
+   *   It also mentions how skill cards are injected into the context per turn based on error-recovery, recency, or intent 
+ priority.                                                                                                                 
+                                                                                                                           
+   *   State that I have a specific skill for TypeScript.                                                                  
+   *   Provide its name and description as listed in my prompt.                                                            
+   *   Mention that it is used to optimize headless TypeScript tool execution.                                                                                                                                                                    
+
+ I have one specialized skill currently loaded in my system prompt specifically for TypeScript:                            
+                                                                                                                           
+ ### 🛠️ TypeScript Skill                                                                                                   
+                                                                                                                           
+ - Name: typescript                                                                                                        
+ - Description: Optimizations for headless typescript tool execution.                                                      
+ - Location: /Users/markw/.pi/agent/skills/typescript.md                                                                   
+                                                                                                                           
+ This skill is automatically injected into my context when I am working on tasks involving TypeScript to ensure that       
+ commands (like running tests or compiling code) are executed efficiently and correctly in a headless environment.
+```
+
+As a test of this setup I used the prompt (I show only the first part of the agent’s output here):
+
+```
+> write a library file web-scraper.ts that has APIs for 1. get plain text from a URI 2. get Markdown from a URI 3. get      
+ links from URI 4. get H1, H2, H3 section head text fro URI                                                                
+                                                                                                                           
+
+ The user wants a TypeScript library file web-scraper.ts that provides four specific APIs:                                 
+ 1. Get plain text from a URI.                                                                                             
+ 2. Get Markdown from a URI.                                                                                               
+ 3. Get links from a URI.                                                                                                  
+ 4. Get H1, H2, H3 section head text from a URI.                                                                           
+                                                                                                                           
+ I should use popular and reliable libraries for this in the TypeScript/Node.js ecosystem:                                 
+ - axios or fetch (native fetch is available in Node 18+) for HTTP requests.                                               
+ - cheerio for parsing HTML and extracting data.                                                                           
+ - turndown for converting HTML to Markdown.                                                                               
+                                                                                                                           
+ Plan:                                                                                                                     
+ 1. Check the environment to see if I need to install any dependencies (axios, cheerio, turndown).                         
+ 2. Write the web-scraper.ts file using these libraries.                                                                   
+ 3. Provide an example of how to use it (optional but good practice).                                                      
+```
+
+Using the model `gemma4:26b-a4b-it-qat` this prompt one-shotted the following working system:
+
+```
+package.json test-scraper.ts web-scraper.ts package-lock.json
+```
+
+I used a second prompt to generate a `README.md` file:
+
+```
+> Write a README.md file that documents the code and shows how to run the test code: npm tsx test-scraper.ts
+```
+
+This prompt created a quality `README.md` file.
+
 ---
 
 ## 3. Optimizing Your Developer Environment (VRAM & RAM Conservation)
