@@ -1,8 +1,9 @@
 # Hands-On Coding Examples with Little-Coder
 
-This chapter walks through four real-world scenarios demonstrating how Little-Coder uses its local skills config to execute, test, and write code safely with local Gemma 4 models. 
+This chapter walks through four real-world scenarios demonstrating how ’little-coder` uses its local skills config to execute, test, and write code safely with local Gemma 4 models. 
 
----
+**Dear reader, This chapter documents my current experiments for improving tougher edge-cases of using small local models for agentic coding. Please consider this chapter to be a work in progress.**
+
 
 ## Example 1: Headless Common Lisp Execution
 
@@ -68,16 +69,13 @@ The agent wants to execute a test script `test-api.ts` directly:
 npx tsx test-api.ts
 ```
 
-If the agent needs to run a mutation loop during complex code refactoring, it starts a watch process:
-```bash
-npx tsx watch test-api.ts
-```
 
 ### Scenario: Strict Type Validation
 Before completing a task, the agent runs a compiler check to ensure no type errors were introduced:
 ```bash
 npx tsc --noEmit
 ```
+
 Using `--noEmit` validates the entire type tree without writing anything to disk.
 
 ---
