@@ -22,7 +22,8 @@ Ensure Ollama is **not** running in the background (if on macOS you see the Olla
 OLLAMA_CONTEXT_LENGTH=32768 ollama serve
 ```
 
-You must run with a larger than the default 4K context. Here I set the context length to 32768 when running on my 32GB Mac and I use 16786 context size on my 16GB Mac.
+You must run with a larger than the default 4K context. Here I set the context length to 32768 when running on my 32GB Mac and sometimes I use a smaller 16786 context size on my 16GB Mac but I prefer a full
+32768 context size. In several experiments, problems like errors in writing files were fixed when increasing the context size to 32768, even on a 16GB memory computer.
 
 ### Step 3: Pull the Gemma 4 MoE Model
 For a 32GB Mac, we pull the 26B Mixture-of-Experts variant with 4-bit Quantization-Aware Training (QAT). This model provides the best speed and headroom:
