@@ -17,3 +17,14 @@ This is a short book!
 
 Enjoy!
 
+## Setup notes
+
+Mostly, read the book. For convenience I like to put the folowing in my `.profile` file:
+
+```
+alias lc='little-coder --model ollama/gemma4:26b-a4b-it-qat'
+alias lcf='little-coder --model ollama/gemma4:12b-it-qat'
+# Append functional programming tools to little-coder's bash whitelist
+export LITTLE_CODER_BASH_ALLOW="sbcl ,clojure ,clj ,npx "
+```
+
