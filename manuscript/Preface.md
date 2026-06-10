@@ -4,6 +4,8 @@ OK dear reader, “The Rise of Local Coding Agents” is very optimistic, but th
 
 I currently use the setup described in this short (and free!) book of about half of my Python and TypeScript development and experiment with local agentic coding for more niche languages like Common Lisp and Clojure.
 
+**Note: Dear Reader, running any agentic coding tools bare on your working computer has security risks as discussed in later chapters. This comment applies to all agentic coding harnesses including `little-coder`, `Hermes Agent`, Aider, Cline, OpenHands (formerly OpenDevin), Claude Code, gemini-cli, and Swe-agent. In two later chapters we look at two techniques for partially *locking down* security for agentic coding assistants.**
+
 This book reflects my own efforts to maximize the utility of my two home computers, a Mac mini M2-Pro 32G (an old computer) and a MacBook Air M4 16G for local agentic coding. As I write this in June 2026 I am using Itay Inbar’s [little-coder](https://github.com/itayinbarr/little-coder) project that wraps the **pi** open source agentic coding harness, optimizing for smaller models and less powerful local computers. The material in this book can also be used with home systems with NVIDIA GPUs, AMD, Intel, etc. because I use [Ollama](https://ollama.com) to serve local models and Ollama supports many hardware architectures. **pi** and **little-coder** are also portable.
 
 You need to clone the GitHub repository [https://github.com/mark-watson/little-coder_Local_Coding_Book](https://github.com/mark-watson/little-coder_Local_Coding_Book) that contains example material for this book as well as the complete manuscript.
