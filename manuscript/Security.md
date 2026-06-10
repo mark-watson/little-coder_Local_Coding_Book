@@ -31,7 +31,8 @@ Dear reader, decide for yourself how secure you want your use of agentic coding 
 
 # Optional Material: Using Apple Containers
 
-Here we look at a setup that is more secure than simply running in a non privileged macSO account as we did in the previous chapter.
+Here we look at a setup that is more secure than simply running in a non privileged macSO account as we did in the previous chapter. You need to download and install the latest release for Apple Containers: [https://github.com/apple/container](https://github.com/apple/container).
+
 
 ## Create the Dockerfile
 
@@ -121,3 +122,13 @@ container machine stop little-coder-env
 ```
 
 You only need to download the model once to the container.
+
+### Reclaiming Disk Space
+
+If you want to reclaim all disk space:
+
+```
+container machine stop little-coder-env
+container machine rm little-coder-env
+container image rm local/ollama-machine:latest
+```
